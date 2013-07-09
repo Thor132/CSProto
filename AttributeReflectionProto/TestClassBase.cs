@@ -36,7 +36,7 @@ namespace AttributeReflectionProto
             List<string> customPropertyStrings = new List<string>();
             foreach (PropertyInfo property in this.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(TestAttributeClassAttribute))))
             {
-                TestAttributeClassAttribute customAttribute = property.GetCustomAttributes(true).Where(p => p is TestAttributeClassAttribute).FirstOrDefault() as TestAttributeClassAttribute;
+                TestAttributeClassAttribute customAttribute = property.GetCustomAttributes(true).FirstOrDefault(p => p is TestAttributeClassAttribute) as TestAttributeClassAttribute;
 
                 string value = string.Empty;
                 if (property.PropertyType.IsAssignableFrom(typeof(string)))
