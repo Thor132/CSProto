@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="WpfNLogProto.LogControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:CSHelperLibrary.WPF.Controls;assembly=CSHelperLibrary"   
+             xmlns:logging="clr-namespace:CSHelperLibrary.Logging;assembly=CSHelperLibrary"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+
+    <UserControl.DataContext>
+        <logging:NLogViewModel/>
+    </UserControl.DataContext>
+
+    <!--<UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/CSHelperLibrary;component/WPF/Themes/Theme.xaml" />
+    </UserControl.Resources>-->
+
+    <Grid>
+        <controls:ClearableTextBox InputText="{Binding SearchString, Mode=TwoWay}" Height="23" VerticalAlignment="Top" HintText="Search"/>
+        <controls:AutoScrollDataGrid Margin="0,29,0,0"
+                        x:Name="logGrid"
+                        ItemsSource="{Binding LogCollection}" 
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        AutoGenerateColumns="False" 
+                        IsReadOnly="True" 
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserResizeRows="False"
+                        HeadersVisibility="Column"
+                        GridLinesVisibility="None"
+                        VerticalScrollBarVisibility="Visible">
+            
+            <!--<controls:AutoScrollDataGrid.Style>          
+                <Style TargetType="{x:Type controls:AutoScrollDataGrid}" BasedOn="{StaticResource {x:Type DataGrid}}"/>
+            </controls:AutoScrollDataGrid.Style>-->
+            
+            <controls:AutoScrollDataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Trace">
+                            <Setter Property="Foreground" Value="Gray"/>
+                            <Setter Property="FontStyle" Value="Italic"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Info">
+                            <Setter Property="Foreground" Value="Blue"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Warn">
+                            <Setter Property="Foreground" Value="Orange"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Error">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Fatal">
+                            <Setter Property="Foreground" Value="White"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:AutoScrollDataGrid.CellStyle>
+
+            <controls:AutoScrollDataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Level.Name}" Value="Fatal">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:AutoScrollDataGrid.RowStyle>
+
+            <controls:AutoScrollDataGrid.Columns>
+
+                <DataGridTextColumn Binding="{Binding SequenceID}" MinWidth="30" Header="ID"/>
+                <DataGridTextColumn Binding="{Binding Level}" MinWidth="50" Header="Level"/>
+                <DataGridTextColumn Binding="{Binding TimeStamp}" MinWidth="125" Header="Time"/> <!-- TODO: order by the sequence id -->
+                <DataGridTextColumn Binding="{Binding LoggerShortName}" MinWidth="125" Header="Module"/>
+                <DataGridTextColumn Binding="{Binding FormattedMessage}" Width="*" MinWidth="150" Header="Message"/>
+            </controls:AutoScrollDataGrid.Columns>
+        </controls:AutoScrollDataGrid>
+    </Grid>
+</UserControl>
+
