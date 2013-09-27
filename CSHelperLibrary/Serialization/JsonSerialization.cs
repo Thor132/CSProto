@@ -23,7 +23,7 @@ namespace CSHelperLibrary.Serialization
         /// Serializes the passed in object to a JSON string.
         /// </summary>
         /// <param name="input">Object to serialize.</param>
-        /// <returns>Serializes data.</returns>
+        /// <returns>Serialized data.</returns>
         public static string SerializeObjectToString(object input)
         {
             return JsonConvert.SerializeObject(input, Formatting.Indented, JSONSettings);
@@ -36,6 +36,12 @@ namespace CSHelperLibrary.Serialization
         /// <param name="filename">Filename to serialize the object to.</param>
         public static void SerializeObjectToFile(object input, string filename)
         {
+            FileInfo fileInfo = new FileInfo(filename);
+            if (!fileInfo.Directory.Exists)
+            {
+                fileInfo.Directory.Create();
+            }
+
             using (TextWriter writer = File.CreateText(filename))
             {
                 writer.Write(SerializeObjectToString(input));
