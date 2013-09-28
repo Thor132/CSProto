@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSJsonSerialization", "CSJs
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPPJsonSerialization", "CPPJsonSerialization\CPPJsonSerialization.vcxproj", "{F8411053-1D5D-4B19-A1BC-F38DF3EE77CE}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PYJsonSerialization", "PYJsonSerialization\PYJsonSerialization.pyproj", "{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,14 @@ Global
 		{F8411053-1D5D-4B19-A1BC-F38DF3EE77CE}.Release|Win32.ActiveCfg = Release|Win32
 		{F8411053-1D5D-4B19-A1BC-F38DF3EE77CE}.Release|Win32.Build.0 = Release|Win32
 		{F8411053-1D5D-4B19-A1BC-F38DF3EE77CE}.Release|x86.ActiveCfg = Release|Win32
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Release|Win32.ActiveCfg = Release|Any CPU
+		{5232A1CC-107E-4CE6-B6A4-A9C78BC7F6F7}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
