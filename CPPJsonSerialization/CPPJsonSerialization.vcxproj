@@ -86,10 +86,12 @@
   <ItemGroup>
     <ClCompile Include="JsonSerialization.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestStructure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IJsonSerializable.h" />
     <ClInclude Include="JsonSerialization.h" />
+    <ClInclude Include="TestStructure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

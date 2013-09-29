@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandLine;
-using CommandLine.Text;
-using CSHelperLibrary.Serialization;
-
+﻿
 namespace CommandLineOptions
 {
+    using System;
+    using CommandLine;
+    using CommandLine.Text;
+
     class Options
     {
         [Option('r', "read", Required = true, HelpText = "Input file to be processed.")]

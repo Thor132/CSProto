@@ -1,29 +1,5 @@
 #include "JsonSerialization.h"
-
-class TestStructure : public IJsonSerializable
-{
-public:
-	std::string m_Name;
-	int m_Id;
-
-public:
-	virtual ~TestStructure(void)
-	{
-	}
-
-	virtual void Serialize(Json::Value& jsonData)
-	{
-		jsonData["$type"] = "CSJsonSerialization.TestStructure, CSJsonSerialization";
-		jsonData["Name"] = m_Name;
-		jsonData["Id"] = m_Id;
-	}
-
-	virtual void Deserialize(Json::Value& jsonData)
-	{
-		m_Name = jsonData.get("Name", "").asString();
-		m_Id = jsonData.get("Id", 0).asInt();
-	}
-};
+#include "TestStructure.h"
 
 int main(int argc, const char *argv[])
 {
