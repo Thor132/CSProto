@@ -2,6 +2,15 @@ import json
 import re
 import ctypes.wintypes
 
+# [GenerateClass(Name="TestPythonStructure")]
+class TestPythonStructure(object):
+    # [GenerateProperty(Name="Name", Type="string", DisplayName="Name")]
+    # [GenerateProperty(Name="Id", Type="int", DisplayName="Id", Description="The structure's id")]
+    # [GenerateProperty(Name="ListOfStrings", Type="List<string>", Complex)]
+    def __init__(self, Name = "", Id = 0, ListOfInts = []):
+        self.Name = Name
+        self.Id = Id
+
 class TestStructure(object):
     def __init__(self, Name = "", Id = 0):
         self.Name = Name
