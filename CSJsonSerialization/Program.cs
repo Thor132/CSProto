@@ -33,6 +33,23 @@ namespace CSJsonSerialization
                 TestStructure pyData = JsonSerialization.DeserializeObjectFromFile<TestStructure>(pyFile.FullName);
                 Console.WriteLine("Py data: Name={0} Id={1}", pyData.Name, pyData.Id);
             }
+
+            // Serialize generated structures
+            TestCppStructure cppGen = new TestCppStructure() { Id = 89, Name = "C++ generated file saved from C#" };
+            for (int i = 0; i <= 20; i += 2)
+            {
+                cppGen.ListOfInts.Add(i);
+            }
+
+            JsonSerialization.SerializeObjectToFile(cppGen, string.Format("{0}\\cppgen_csjson.txt", Environment.GetFolderPath(Environment.SpecialFolder.Desktop)));
+
+            TestPythonStructure pyGen = new TestPythonStructure() { Id = 991, Name = "Python generated file saved from C#" };
+            for (int i = 0; i <= 20; i += 2)
+            {
+                pyGen.ListOfStrings.Add(string.Format("Int: {0}", i));
+            }
+
+            JsonSerialization.SerializeObjectToFile(pyGen, string.Format("{0}\\pygen_csjson.txt", Environment.GetFolderPath(Environment.SpecialFolder.Desktop)));
         }
     }
 }
