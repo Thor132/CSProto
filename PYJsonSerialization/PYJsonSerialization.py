@@ -7,9 +7,15 @@ class TestPythonStructure(object):
     # [GenerateProperty(Name="Name", Type="string", DisplayName="Name")]
     # [GenerateProperty(Name="Id", Type="int", DisplayName="Id", Description="The structure's id")]
     # [GenerateProperty(Name="ListOfStrings", Type="List<string>", Complex)]
-    def __init__(self, Name = "", Id = 0, ListOfInts = []):
+    def __init__(self, Name = "", Id = 0, ListOfStrings = []):
         self.Name = Name
         self.Id = Id
+        self.ListOfStrings = ListOfStrings
+
+    def PrintData(self):
+        print "Name=\"" + self.Name + "\" Id=" + str(self.Id)
+        for x in range(0, len(self.ListOfStrings)):
+            print "String: " + self.ListOfStrings[x]
 
 class TestStructure(object):
     def __init__(self, Name = "", Id = 0):
@@ -18,6 +24,15 @@ class TestStructure(object):
 
     def PrintData(self):
         print "Name=\"" + self.Name + "\" Id=" + str(self.Id)
+
+class ParentTestStructure(object):
+    def __init__(self, Name = "", Id = 0, Test = TestStructure()):
+        self.Name = Name
+        self.Id = Id
+        self.Test = Test
+
+    def PrintData(self):
+        print "Name=\"" + self.Name + "\" Id=" + str(self.Id) + " child: Name= " + self.Test.Name
 
 class JsonSerialization(object):
     def SerializeObjectToString(self, object):
@@ -78,6 +93,11 @@ class JsonSerializationCSharp(JsonSerialization):
         if '$type' in d:
             typeString = d.pop('$type')
             reMatch = re.match("(.+?), .*", typeString)
+
+            # If the type contains .List then just return the data in $values
+            if ".List" in typeString:
+                return d.pop('$values')
+
             if not reMatch:
                 return None
 
@@ -113,3 +133,17 @@ if __name__ == "__main__":
     # Read C# File
     csTestStructure = serializer.DeserializeObjectFromFile(csharpInputFile)
     csTestStructure.PrintData()
+
+    # Serialize and deserialize a structure with a complex type
+    complexOutputFile = GetDirectory(0) + "\\testpyjson.txt"
+    pyComplexTestStructureOutput = ParentTestStructure("parent", 5, pyTestStructure)
+    serializer.SerializeObjectToFile(pyComplexTestStructureOutput, complexOutputFile)
+    pyComplexTestStructureOutput.PrintData()
+
+    pyComplexTestStructureInput = serializer.DeserializeObjectFromFile(complexOutputFile)
+    pyComplexTestStructureInput.PrintData()
+
+    # Deserialize a structure with a C# list of strings
+    listInputFile = GetDirectory(0) + "\\pygen_csjson.txt"
+    csListTestStructure = serializer.DeserializeObjectFromFile(listInputFile)
+    csListTestStructure.PrintData()
