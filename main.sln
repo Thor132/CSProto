@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDragAndDrop", "WpfDragAn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvalonDockTest", "AvalonDockTest\AvalonDockTest.csproj", "{5E909FFA-87F6-4D0E-B122-FF19E73AFCE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfPixelShader", "WpfPixelShader\WpfPixelShader.csproj", "{08F28C23-693F-4B5D-8B91-9CCA65329D81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +165,18 @@ Global
 		{5E909FFA-87F6-4D0E-B122-FF19E73AFCE1}.Release|Win32.ActiveCfg = Release|x86
 		{5E909FFA-87F6-4D0E-B122-FF19E73AFCE1}.Release|x86.ActiveCfg = Release|x86
 		{5E909FFA-87F6-4D0E-B122-FF19E73AFCE1}.Release|x86.Build.0 = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|Win32.ActiveCfg = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|x86.ActiveCfg = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Debug|x86.Build.0 = Debug|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|Any CPU.ActiveCfg = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|Mixed Platforms.Build.0 = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|Win32.ActiveCfg = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|x86.ActiveCfg = Release|x86
+		{08F28C23-693F-4B5D-8B91-9CCA65329D81}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
