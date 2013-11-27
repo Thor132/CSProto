@@ -59,6 +59,7 @@
     <Compile Include="WPF\Controls\ClearableTextBox.xaml.cs">
       <DependentUpon>ClearableTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WPF\Controls\ItemsListMenuItem.cs" />
     <Compile Include="WPF\NotifyPropertyChangedBase.cs" />
     <Compile Include="WPF\RelayCommand.cs" />
   </ItemGroup>
