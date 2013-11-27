@@ -10,6 +10,8 @@ namespace WpfDragAndDrop
     using System.Collections.ObjectModel;
     using System.Windows;
     using GongSolutions.Wpf.DragDrop;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
 
     public class MainViewModel : IDropTarget
     {
@@ -25,6 +27,12 @@ namespace WpfDragAndDrop
 
         public void DragOver(IDropInfo dropInfo)
         {
+            if (this.IsFileDropInfo(dropInfo))
+            {
+                dropInfo.Effects = DragDropEffects.Link;
+                return;
+            }
+
             ITreeItem source = dropInfo.Data as ITreeItem;
             ITreeItem target = dropInfo.TargetItem as ITreeItem;
             if (source == null
@@ -78,6 +86,11 @@ namespace WpfDragAndDrop
 
         public void Drop(IDropInfo dropInfo)
         {
+            if (this.HandleFileDropInfo(dropInfo))
+            {
+                return;
+            }
+
             int targetIndex = dropInfo.InsertIndex;
             int sourceIndex = dropInfo.DragInfo.SourceIndex;
             ITreeItem source = dropInfo.Data as ITreeItem;
@@ -117,6 +130,28 @@ namespace WpfDragAndDrop
             sourceCollection.RemoveAt(sourceIndex);
             targetCollection.Insert(targetIndex, source);
             source.Parent = target.Parent;
+        }
+
+        public bool IsFileDropInfo(IDropInfo dropInfo)
+        {
+            DataObject data = dropInfo.Data as DataObject;
+            return data != null && data.GetDataPresent(DataFormats.FileDrop);
+        }
+
+        public bool HandleFileDropInfo(IDropInfo dropInfo)
+        {
+            if (this.IsFileDropInfo(dropInfo))
+            {
+                StringCollection filenames = ((DataObject)dropInfo.Data).GetFileDropList();
+                foreach (string filename in filenames)
+                {
+                    MessageBox.Show(string.Format("File drop: {0}", filename));
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
