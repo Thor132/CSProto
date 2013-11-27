@@ -34,7 +34,6 @@ namespace CSHelperLibrary.WPF.Controls
         /// </summary>
         public ItemsListMenuItem()
         {
-            this.MaxPathLength = 0;
             this.Loaded += this.MenuItemList_Loaded;
             this.Visibility = System.Windows.Visibility.Collapsed;
         }
@@ -69,6 +68,11 @@ namespace CSHelperLibrary.WPF.Controls
         /// Setting this value to 0 or less than 0 will not truncate the path.
         /// </summary>
         public int MaxPathLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to prefix each item in the list with an index number
+        /// </summary>
+        public bool PrefixItemIndex { get; set; }
 
         #region Event Handlers
 
@@ -158,13 +162,16 @@ namespace CSHelperLibrary.WPF.Controls
             if (this.ItemList != null && this.ItemList.Any())
             {
                 int currentIndex = nextItemIndex;
-                foreach (var item in this.ItemList)
+                for (int i = 0; i < this.ItemList.Count; ++i)
                 {
                     MenuItem newItem = new MenuItem()
                         {
-                            Header = this.MaxPathLength > 0 ? this.GetTruncatedPath(item) : item,
+                            Header = string.Format(
+                                        "{0}{1}",
+                                        this.PrefixItemIndex ? string.Format("{0}: ", i + 1) : string.Empty,
+                                        this.GetFormattedPath(this.ItemList[i])),
                             Command = this.ItemCommand,
-                            CommandParameter = item
+                            CommandParameter = this.ItemList[i]
                         };
 
                     parent.Items.Insert(currentIndex++, newItem);
@@ -181,12 +188,18 @@ namespace CSHelperLibrary.WPF.Controls
         private static extern bool PathCompactPathEx([Out] StringBuilder pszOut, string szPath, int cchMax, int dwFlags);
 
         /// <summary>
-        /// Returns the truncated path from the native PathCompactPathEx
+        /// Returns the formatted path.
+        /// If MaxPathLength > 0 it will be truncated using the native PathCompactPathEx call
         /// </summary>
         /// <param name="path">Path to truncate.</param>
         /// <returns>Truncated path.</returns>
-        private string GetTruncatedPath(string path)
+        private string GetFormattedPath(string path)
         {
+            if (this.MaxPathLength <= 0)
+            {
+                return path;
+            }
+
             StringBuilder sb = new StringBuilder();
             PathCompactPathEx(sb, path, this.MaxPathLength, 0);
             return sb.ToString();

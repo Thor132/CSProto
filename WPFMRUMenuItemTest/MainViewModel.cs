@@ -9,14 +9,14 @@ using System.Windows;
 
 namespace WPFMRUMenuItemTest
 {
-    class MainViewModel
+    class MainViewModel : NotifyPropertyChangedBase
     {
         public MainViewModel()
         {
             this.MenuItems = new ObservableCollection<string>();
-            for (int i = 0; i < 0; ++i)
+            for (int i = 0; i < 2; ++i)
             {
-                this.MenuItems.Add(string.Format("{0} - {1}", i, DateTime.Now));
+                this.MenuItems.Add(string.Format("{1}", i, DateTime.Now));
             }
         }
 
@@ -26,7 +26,7 @@ namespace WPFMRUMenuItemTest
         {
             get
             {
-                return new RelayCommand(param => this.MenuItems.Add(string.Format("{0} - {1}", this.MenuItems.Count, DateTime.Now)), param => { return true; });
+                return new RelayCommand(param => this.MenuItems.Add(string.Format("{1}", this.MenuItems.Count, DateTime.Now)), param => { return true; });
             }
         }
 
