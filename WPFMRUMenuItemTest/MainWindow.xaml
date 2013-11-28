@@ -14,10 +14,10 @@
                 <MenuItem Header="Remove" Command="{Binding RemoveCommand}"/>
                 <Separator/>
                 <TextBlock Text="SubMenuHeader Declared"/>
-                <controls:ItemsListMenuItem ItemList="{Binding MenuItems}" ItemCommand="{Binding RecentItemCommand}" SubMenuHeader="Recent Items"/>
+                <controls:ItemsListMenuItem ItemList="{Binding MenuItems}" ItemCommand="{Binding RecentItemCommand}" SubMenuHeader="Recent Items" MaxPathLength="40"/>
                 <Separator/>
                 <TextBlock Text="SubMenuHeader Omitted"/>
-                <controls:ItemsListMenuItem ItemList="{Binding MenuItems}" ItemCommand="{Binding RecentItemCommand}"/>
+                <controls:ItemsListMenuItem ItemList="{Binding MenuItems}" ItemCommand="{Binding RecentItemCommand}" MaxPathLength="45"/>
                 <Separator/>
                 <TextBlock Text="SubMenuHeader Omitted - Prefixed"/>
                 <controls:ItemsListMenuItem ItemList="{Binding MenuItems}" ItemCommand="{Binding RecentItemCommand}" PrefixItemIndex="True" />

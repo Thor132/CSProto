@@ -35,7 +35,7 @@ namespace CSHelperLibrary.WPF.Controls
         public ItemsListMenuItem()
         {
             this.Loaded += this.MenuItemList_Loaded;
-            this.Visibility = System.Windows.Visibility.Collapsed;
+            this.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -183,7 +183,6 @@ namespace CSHelperLibrary.WPF.Controls
         #endregion
 
         #region Path Truncation Functionality
-
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern bool PathCompactPathEx([Out] StringBuilder pszOut, string szPath, int cchMax, int dwFlags);
 
@@ -200,8 +199,8 @@ namespace CSHelperLibrary.WPF.Controls
                 return path;
             }
 
-            StringBuilder sb = new StringBuilder();
-            PathCompactPathEx(sb, path, this.MaxPathLength, 0);
+            StringBuilder sb = new StringBuilder(this.MaxPathLength + 1);
+            PathCompactPathEx(sb, path, this.MaxPathLength + 1, 0);
             return sb.ToString();
         }
 
