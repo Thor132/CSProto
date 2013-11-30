@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Containers\LruCollection.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Logging\NLogCustomTarget.cs" />
     <Compile Include="Logging\NLogViewModel.cs" />
