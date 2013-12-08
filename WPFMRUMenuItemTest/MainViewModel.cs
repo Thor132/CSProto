@@ -26,7 +26,7 @@ namespace WPFMRUMenuItemTest
         {
             get
             {
-                return new RelayCommand(param => this.MenuItems.Add(string.Format("{1}", this.MenuItems.Count, DateTime.Now)), param => { return true; });
+                return new RelayCommand(param => this.MenuItems.Add(string.Format("{0}", DateTime.Now)), param => { return true; });
             }
         }
 
