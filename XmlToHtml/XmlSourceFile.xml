@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<changelog>
+    <changeset version="1212">
+        <date>Date1</date>
+        <user>User1</user>
+        <comment>Comment1</comment>
+        <items>
+            <item action="add">/file/path/newfile1</item>
+            <item action="add">/file/path/newfile1</item>
+            <item action="add">/file/path/newfile1</item>
+            <item action="add">/file/path/newfile1</item>
+            <item action="mod">/file/path/newfile1</item>
+            <item action="del">/file/path/newfile1</item>
+        </items>
+    </changeset>
+    <changeset version="1211">
+        <date>Date2</date>
+        <user>User2</user>
+        <comment>Comment2</comment>
+        <items>
+            <item action="add">/file/path/newfile2</item>
+        </items>
+    </changeset>
+    <changeset version="1210">
+        <date>Date3</date>
+        <user>User3</user>
+        <comment>Comment3</comment>
+        <items>
+            <item action="add">/file/path/newfile3</item>
+        </items>
+    </changeset>
+    <changeset version="120">
+        <date>Date4</date>
+        <user>User4</user>
+        <comment>Comment4</comment>
+    </changeset>
+</changelog>
