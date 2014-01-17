@@ -13,6 +13,18 @@ namespace Nabbler
     using CommandLine;
     using CommandLine.Text;
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Rect
+    {
+        public int left;
+        public int top;
+        public int right;
+        public int bottom;
+
+        public int Width { get { return right - left; } }
+        public int Height { get { return bottom - top; } }
+    }
+
     public class Options
     {
         [Option('p', "proc", Required = true, HelpText = "Process name to screenshot.")]
@@ -44,9 +56,14 @@ namespace Nabbler
                     Console.WriteLine("No processes were found with name {0}", options.ProcessName);
                 }
 
+                DirectoryInfo outputDirectory = new DirectoryInfo(options.OutputDirectory);
+                if (!outputDirectory.Exists)
+                {
+                    outputDirectory.Create();
+                }
+
                 foreach (Process process in processes)
                 {
-
                     Console.WriteLine("Capturing {0} ID {1}", process.ProcessName, process.Id);
                     Bitmap bmp = PrintWindow(process.MainWindowHandle);
                     string outputPath = Path.Combine(options.OutputDirectory, string.Format("{0}-{1}.png", process.ProcessName, process.Id));
@@ -56,6 +73,8 @@ namespace Nabbler
             }
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
         [DllImport("user32.dll")]
         public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
         [DllImport("user32.dll")]
@@ -71,15 +90,6 @@ namespace Nabbler
         private const int SW_MINIMIZE = 6;
         private const uint WS_MINIMIZE = 0x20000000;
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct Rect
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-        }
-
         public static Bitmap PrintWindow(IntPtr hwnd)
         {
             bool wasMinimized = false;
@@ -94,11 +104,9 @@ namespace Nabbler
 
             Rect rect;
             GetWindowRect(hwnd, out rect);
-            int width = rect.right - rect.left;
-            int height = rect.bottom - rect.top;
 
             // http://stackoverflow.com/questions/891345/get-a-screenshot-of-a-specific-application
-            Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            Bitmap bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
             IntPtr hdcBitmap = gfxBmp.GetHdc();
 
