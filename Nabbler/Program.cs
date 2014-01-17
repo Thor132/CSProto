@@ -13,6 +13,7 @@ namespace Nabbler
     using System.Threading;
     using CommandLine;
     using CommandLine.Text;
+    using System.Text.RegularExpressions;
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct Rect
@@ -64,8 +65,8 @@ namespace Nabbler
 
     public class Options
     {
-        [Option('p', "proc", Required = true, HelpText = "Process name to screenshot.")]
-        public string ProcessName { get; set; }
+        [Option('p', "proc", Required = true, HelpText = "Process name regular expression.")]
+        public string ProcessNameRegex { get; set; }
 
         [Option('o', "out", Required = true, HelpText = "Output directory.")]
         public string OutputDirectory { get; set; }
@@ -89,10 +90,11 @@ namespace Nabbler
             var options = new Options();
             if (Parser.Default.ParseArguments(args, options))
             {
-                List<Process> processes = Process.GetProcessesByName(options.ProcessName).ToList();
+                Regex regex = new Regex(options.ProcessNameRegex);
+                List<Process> processes = Process.GetProcesses().Where(p => regex.IsMatch(p.ProcessName)).ToList();
                 if (!processes.Any())
                 {
-                    Console.WriteLine("No processes were found with name {0}", options.ProcessName);
+                    Console.WriteLine("No processes were found with the regular expression \"{0}\"", options.ProcessNameRegex);
                 }
 
                 DirectoryInfo outputDirectory = new DirectoryInfo(options.OutputDirectory);
@@ -113,13 +115,13 @@ namespace Nabbler
                             continue;
                         }
 
-                        string outputPath = Path.Combine(options.OutputDirectory, string.Format("{0}-{1}.png", process.ProcessName, process.Id));
+                        string outputPath = Path.Combine(options.OutputDirectory, string.Format("{0}.{1}.png", process.ProcessName, process.Id));
                         bmp.Save(outputPath, ImageFormat.Png);
                         Console.WriteLine("Saved to {0}", outputPath);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("An exception occurred for process {0}({1}):{2}", process.ProcessName, process.Id, ex.Message);
                     }
                 }
             }
@@ -161,11 +163,11 @@ namespace Nabbler
             }
         }
 
-        public static void RepositionWindow(IntPtr hwnd)
+        public static void RepositionWindow(IntPtr hwnd, int left, int top)
         {
             Rect winRect;
             Native.GetWindowRect(hwnd, out winRect);
-            Native.MoveWindow(hwnd, 0, 0, winRect.Width, winRect.Height, true);
+            Native.MoveWindow(hwnd, left, top, winRect.Width, winRect.Height, true);
         }
 
         public static void SetForgroundWindowMethod1(Process process)
