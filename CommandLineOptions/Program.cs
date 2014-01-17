@@ -1,17 +1,16 @@
-﻿
-namespace CommandLineOptions
+﻿namespace CommandLineOptions
 {
     using System;
     using CommandLine;
     using CommandLine.Text;
 
-    class Options
+    internal class Options
     {
         [Option('r', "read", Required = true, HelpText = "Input file to be processed.")]
         public string InputFile { get; set; }
 
         // omitting long name, default --verbose
-        [Option(DefaultValue = true, HelpText = "Prints all messages to standard output.")]
+        [Option('v', "verbose", DefaultValue = false, HelpText = "Prints all messages to standard output.")]
         public bool Verbose { get; set; }
 
         [ParserState]
@@ -24,18 +23,25 @@ namespace CommandLineOptions
         }
     }
 
-
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Args: " + string.Join(", ", args));
 
-            var options = new Options();
-            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            CommandLine.Parser commandLineParser = new Parser(settings =>
             {
+                settings.HelpWriter = Console.Error;
+                settings.CaseSensitive = false;
+                settings.IgnoreUnknownArguments = true;
+            });
+
+            var options = new Options();
+            if (commandLineParser.ParseArguments(args, options))
+            {
+                Console.WriteLine("Filename: {0}", options.InputFile);
                 // Values are available here
-                if (options.Verbose) Console.WriteLine("Filename: {0}", options.InputFile);
+                if (options.Verbose) Console.WriteLine("[Verbose] Args: {0}", string.Join(",", args));
             }
 
             Console.ReadKey();
