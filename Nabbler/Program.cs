@@ -10,10 +10,10 @@ namespace Nabbler
     using System.IO;
     using System.Linq;
     using System.Runtime.InteropServices;
+    using System.Text.RegularExpressions;
     using System.Threading;
     using CommandLine;
     using CommandLine.Text;
-    using System.Text.RegularExpressions;
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct Rect
@@ -45,7 +45,7 @@ namespace Nabbler
         [DllImport("user32.dll")]
         internal static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);
         [DllImport("gdi32.dll")]
-        internal static extern int BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, RasterOperation rasterOperation);
+        internal static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, RasterOperation rasterOperation);
 
         [DllImport("user32.dll")]
         internal static extern bool IsIconic(IntPtr hWnd);
@@ -85,7 +85,7 @@ namespace Nabbler
     {
         private const int RestoreWaitTime = 500;
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var options = new Options();
             if (Parser.Default.ParseArguments(args, options))
@@ -107,7 +107,7 @@ namespace Nabbler
                 {
                     try
                     {
-                        Console.WriteLine("Capturing {0} ID {1}", process.ProcessName, process.Id);
+                        Console.WriteLine("Capturing {0}({1})", process.ProcessName, process.Id);
                         Bitmap bmp = CaptureProcessMainWindow(process);
                         if (bmp == null)
                         {
@@ -121,7 +121,7 @@ namespace Nabbler
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("An exception occurred for process {0}({1}):{2}", process.ProcessName, process.Id, ex.Message);
+                        Console.WriteLine("An exception occurred for process {0}({1}): {2}", process.ProcessName, process.Id, ex.Message);
                     }
                 }
             }
