@@ -90,7 +90,7 @@ namespace Nabbler
             var options = new Options();
             if (Parser.Default.ParseArguments(args, options))
             {
-                Regex regex = new Regex(options.ProcessNameRegex);
+                Regex regex = new Regex(options.ProcessNameRegex, RegexOptions.IgnoreCase);
                 List<Process> processes = Process.GetProcesses().Where(p => regex.IsMatch(p.ProcessName)).ToList();
                 if (!processes.Any())
                 {
