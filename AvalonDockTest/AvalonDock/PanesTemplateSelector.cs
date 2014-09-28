@@ -21,6 +21,12 @@ namespace AvalonDockTest.AvalonDock
             set;
         }
 
+        public DataTemplate ChildTabTemplate
+        {
+            get;
+            set;
+        }
+
         public DataTemplate SimpleTab2Template
         {
             get;
@@ -36,8 +42,10 @@ namespace AvalonDockTest.AvalonDock
         public override System.Windows.DataTemplate SelectTemplate(object item, System.Windows.DependencyObject container)
         {
             var itemAsLayoutContent = item as LayoutContent;
+            if (item is ChildTab)
+                return ChildTabTemplate;
 
-            if (item is SimpleTab2)
+            if (item is ComplexTab)
                 return SimpleTab2Template;
 
             if (item is SimpleTab)

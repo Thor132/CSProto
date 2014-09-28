@@ -22,6 +22,12 @@ namespace AvalonDockTest.AvalonDock
             set;
         }
 
+        public Style ChildTabStyle
+        {
+            get;
+            set;
+        }
+
         public Style SimpleAnchorableStyle
         {
             get;
@@ -30,7 +36,10 @@ namespace AvalonDockTest.AvalonDock
 
         public override System.Windows.Style SelectStyle(object item, System.Windows.DependencyObject container)
         {
-            if (item is SimpleTab2)
+            if (item is ChildTab)
+                return ChildTabStyle;
+
+            if (item is ComplexTab)
                 return SimpleTab2Style;
 
             if (item is SimpleTab)

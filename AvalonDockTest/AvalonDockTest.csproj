@@ -73,9 +73,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChildDMView.xaml.cs">
+      <DependentUpon>ChildDMView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestClasses\Interfaces.cs" />
     <Compile Include="TestClasses\TestAnchorables.cs" />
     <Compile Include="TestClasses\TestTabs.cs" />
+    <Page Include="ChildDMView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

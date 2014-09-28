@@ -22,7 +22,7 @@ namespace AvalonDockTest
 
             this.Panels.Add(new SimpleAnchorable());
             this.Tabs.Add(new SimpleTab());
-            this.Tabs.Add(new SimpleTab2());
+            this.Tabs.Add(new ComplexTab());
             this.SelectedTab = this.Tabs[1];
         }
 

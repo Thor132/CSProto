@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace AvalonDockTest.TestClasses
 {
@@ -34,12 +35,24 @@ namespace AvalonDockTest.TestClasses
         public bool IsActive { get; set; }
     }
 
-    public class SimpleTab2 : SimpleTab
+    public class ComplexTab : SimpleTab
     {
-        public SimpleTab2()
+        public ComplexTab()
         {
-            this.Title = "SimpleTab TWO";
-            this.Data = "SimpleTab2Data";
+            this.Title = "ComplexTab";
+            this.Data = "ComplexTabData";
+            this.Children = new ObservableCollection<ChildTab>() { new ChildTab(), new ChildTab() };
+        }
+
+        public ObservableCollection<ChildTab> Children { get; set; }
+    }
+
+    public class ChildTab : SimpleTab
+    {
+        public ChildTab()
+        {
+            this.Title = "ChildTab";
+            this.Data = "ChildTabData";
         }
     }
 }
