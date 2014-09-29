@@ -245,6 +245,7 @@ namespace CopyDirectory
                     destFile.Directory.Create();
                 }
 
+                Console.WriteLine("Copying {0} to {1}", file.FullName, destFile.FullName);
                 file.CopyTo(destFile.FullName, true);
                 this.CopiedBytesCount += file.Length;
                 this.CopiedFilesCount++;
