@@ -43,7 +43,7 @@ namespace CopyDirectory
 
             set
             {
-                this.customText = this.TruncateString(value, 20);
+                this.customText = this.TruncateString(value, 25);
                 this.OnPropertyChanged("CustomText");
             }
         }
@@ -235,18 +235,26 @@ namespace CopyDirectory
 
             foreach (FileInfo file in files)
             {
-                string sourceSubDir = file.DirectoryName.Replace(source.FullName, string.Empty);
-                string subDirFilename = string.Format("{0}\\{1}", sourceSubDir, file.Name);
-                this.CurrentFilename = subDirFilename.StartsWith("\\") ? subDirFilename.Remove(0, 1) : subDirFilename;
-
-                FileInfo destFile = new FileInfo(string.Format("{0}\\{1}", destination.FullName, this.CurrentFilename));
-                if (!destFile.Directory.Exists)
+                try
                 {
-                    destFile.Directory.Create();
+                    string sourceSubDir = file.DirectoryName.Replace(source.FullName, string.Empty);
+                    string subDirFilename = string.Format("{0}\\{1}", sourceSubDir, file.Name);
+                    this.CurrentFilename = subDirFilename.StartsWith("\\") ? subDirFilename.Remove(0, 1) : subDirFilename;
+
+                    FileInfo destFile = new FileInfo(string.Format("{0}\\{1}", destination.FullName, this.CurrentFilename));
+                    if (!destFile.Directory.Exists)
+                    {
+                        destFile.Directory.Create();
+                    }
+
+                    Console.WriteLine("Copying {0} to {1}", file.FullName, destFile.FullName);
+                    file.CopyTo(destFile.FullName, true);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An exception was encountered: {0}", ex.Message);
                 }
 
-                Console.WriteLine("Copying {0} to {1}", file.FullName, destFile.FullName);
-                file.CopyTo(destFile.FullName, true);
                 this.CopiedBytesCount += file.Length;
                 this.CopiedFilesCount++;
             }
@@ -277,7 +285,9 @@ namespace CopyDirectory
             if (input.Length < max)
                 return input;
 
-            return string.Format("...{0}", input.Remove(0, input.Length - max + 2));
+            max -= 3;
+            return string.Format("{0}...{1}", input.Substring(0, max / 2), input.Substring((input.Length - (max / 2))));
+            //return string.Format("...{0}", input.Substring(input.Length - max + 3));
         }
     }
 }

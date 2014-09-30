@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:CopyDirectory"
-        Title="Directory Copy" Height="200" Width="450" ResizeMode="NoResize" Foreground="#FF3E3E3E">
+        Title="Directory Copy" Height="200" Width="450" ResizeMode="NoResize" Foreground="#FFD7D7D7" Background="#FF3E3E3E" Icon="/CopyDirectory;component/icon.ico">
     <Window.Resources>
         <local:ProgressToAngleConverter x:Key="ProgressConverter"/>
         <Style TargetType="{x:Type ProgressBar}" x:Key="ProgressBarStyle">
@@ -10,7 +10,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
                         <Grid>
-                            <local:Arc StrokeThickness="30" Stroke="LightSlateGray" Margin="5">
+                            <local:Arc StrokeThickness="30" Stroke="#FF717171" Margin="5">
                                 <local:Arc.StartAngle>
                                     <MultiBinding Converter="{StaticResource ProgressConverter}">
                                         <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}"/>
@@ -25,7 +25,7 @@
                                 </local:Arc.EndAngle>
                             </local:Arc>
                             <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat='\{0:0\}%' }"
-                                       Foreground="LightSlateGray" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Foreground="#FF717171" VerticalAlignment="Center" HorizontalAlignment="Center"
                                        FontSize="25" FontWeight="Bold"/>
                         </Grid>
                     </ControlTemplate>
@@ -37,7 +37,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
                         <Grid>
-                            <local:Arc StrokeThickness="5" Stroke="#FF707E8D" Margin="5">
+                            <local:Arc StrokeThickness="5" Stroke="#FFA4A4A4" Margin="5">
                                 <local:Arc.StartAngle>
                                     <MultiBinding Converter="{StaticResource ProgressConverter}">
                                         <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}"/>
