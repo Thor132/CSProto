@@ -270,6 +270,7 @@ namespace CopyDirectory
         {
             Console.WriteLine(text);
             MessageBox.Show(text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Application.Current.Dispatcher.Invoke(new Action(() => Application.Current.Shutdown()));
         }
 
         private void OnPropertyChanged(string name)
