@@ -17,7 +17,6 @@
         [Option('k', "keepOpen", DefaultValue = false, HelpText = "Whether to stay open once copied")]
         public bool KeepOpen { get; set; }
 
-
         [ParserState]
         public IParserState LastParserState { get; set; }
 

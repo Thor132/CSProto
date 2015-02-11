@@ -223,7 +223,15 @@ namespace CopyDirectory
             DirectoryInfo destination = new DirectoryInfo(options.DestinationDirectory);
             if (!destination.Exists)
             {
-                destination.Create();
+                try
+                {
+                    destination.Create();
+                }
+                catch (Exception ex)
+                {
+                    LogError(string.Format("An exception occurred when attempting to create destination directory: {0}", ex.Message));
+                    return;
+                }
             }
 
             this.SourceDirectory = source.FullName;
@@ -269,8 +277,7 @@ namespace CopyDirectory
         private void LogError(string text)
         {
             Console.WriteLine(text);
-            MessageBox.Show(text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Application.Current.Dispatcher.Invoke(new Action(() => Application.Current.Shutdown()));
+            Application.Current.Dispatcher.Invoke(new Action(() => Application.Current.Shutdown(1)));
         }
 
         private void OnPropertyChanged(string name)
@@ -288,7 +295,6 @@ namespace CopyDirectory
 
             max -= 3;
             return string.Format("{0}...{1}", input.Substring(0, max / 2), input.Substring((input.Length - (max / 2))));
-            //return string.Format("...{0}", input.Substring(input.Length - max + 3));
         }
     }
 }
