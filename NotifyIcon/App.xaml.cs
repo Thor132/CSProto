@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace VisualCopyDirectory
+namespace NotifyIcon
 {
     /// <summary>
     /// Interaction logic for App.xaml

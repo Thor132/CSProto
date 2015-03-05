@@ -1,6 +1,6 @@
 ﻿
 using System;
-namespace CopyDirectory
+namespace VisualCopyDirectory
 {
     public class ProgressToAngleConverter : System.Windows.Data.IMultiValueConverter
     {

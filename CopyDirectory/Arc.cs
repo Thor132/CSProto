@@ -1,5 +1,5 @@
 ﻿
-namespace CopyDirectory
+namespace VisualCopyDirectory
 {
     using System;
     using System.Windows;

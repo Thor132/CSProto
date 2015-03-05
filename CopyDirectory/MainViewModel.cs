@@ -1,5 +1,4 @@
-﻿
-namespace CopyDirectory
+﻿namespace VisualCopyDirectory
 {
     using System;
     using System.Collections.Generic;
@@ -43,8 +42,17 @@ namespace CopyDirectory
 
             set
             {
-                this.customText = this.TruncateString(value, 25);
+                this.customText = value;
                 this.OnPropertyChanged("CustomText");
+                this.OnPropertyChanged("CustomTextTruncated");
+            }
+        }
+
+        public string CustomTextTruncated
+        {
+            get
+            {
+                return this.TruncateString(this.CustomText, 25);
             }
         }
 
@@ -57,8 +65,17 @@ namespace CopyDirectory
 
             set
             {
-                this.sourceDirectory = this.TruncateString(value, 45);
+                this.sourceDirectory = value;
                 this.OnPropertyChanged("SourceDirectory");
+                this.OnPropertyChanged("SourceDirectoryTruncated");
+            }
+        }
+
+        public string SourceDirectoryTruncated
+        {
+            get
+            {
+                return this.TruncateString(this.SourceDirectory, 45);
             }
         }
 
@@ -71,8 +88,17 @@ namespace CopyDirectory
 
             set
             {
-                this.destinationDirectory = this.TruncateString(value, 45);
+                this.destinationDirectory = value;
                 this.OnPropertyChanged("DestinationDirectory");
+                this.OnPropertyChanged("DestinationDirectoryTruncated");
+            }
+        }
+
+        public string DestinationDirectoryTruncated
+        {
+            get
+            {
+                return this.TruncateString(this.DestinationDirectory, 45);
             }
         }
 
@@ -86,8 +112,17 @@ namespace CopyDirectory
             set
             {
 
-                this.currentFilename = this.TruncateString(value, 45);
+                this.currentFilename = value;
                 this.OnPropertyChanged("CurrentFilename");
+                this.OnPropertyChanged("CurrentFilenameTruncated");
+            }
+        }
+
+        public string CurrentFilenameTruncated
+        {
+            get
+            {
+                return this.TruncateString(this.CurrentFilename, 45);
             }
         }
 
@@ -118,9 +153,13 @@ namespace CopyDirectory
                 this.OnPropertyChanged("CopiedFilesCount");
 
                 if (this.TotalFilesCount > 0)
+                {
                     this.FileProgress = (int)((this.CopiedFilesCount / (double)this.TotalFilesCount) * 100);
+                }
                 else
+                {
                     this.FileProgress = 0;
+                }
             }
         }
 
@@ -151,9 +190,13 @@ namespace CopyDirectory
                 this.OnPropertyChanged("CopiedBytesCount");
 
                 if (this.TotalBytesCount > 0)
+                {
                     this.SizeProgress = (int)((this.CopiedBytesCount / (double)this.TotalBytesCount) * 100);
+                }
                 else
+                {
                     this.SizeProgress = 0;
+                }
             }
         }
 

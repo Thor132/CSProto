@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VisualCopyDirectory
+namespace NotifyIcon
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,15 +21,7 @@ namespace VisualCopyDirectory
     {
         public MainWindow()
         {
-            this.DataContext = new MainViewModel();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            (this.DataContext as MainViewModel).Start();
-            base.OnInitialized(e);
         }
     }
 }

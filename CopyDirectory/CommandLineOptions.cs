@@ -1,4 +1,4 @@
-﻿namespace CopyDirectory
+﻿namespace VisualCopyDirectory
 {
     using CommandLine;
     using CommandLine.Text;
