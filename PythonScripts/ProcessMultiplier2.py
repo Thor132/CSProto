@@ -5,7 +5,7 @@ import time
 
 trackedProcesses = []
 
-class TrackedProcess:
+class TrackedProcess(object):
     def __init__(self, processArgs):
         self.processArgs = processArgs
         self.process = None
